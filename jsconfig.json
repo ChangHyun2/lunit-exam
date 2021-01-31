@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "module": "commonjs",
+    "jsx": "react",
+    "paths": {
+      "@page/*": ["page"],
+      "@UI/*": ["UI/*"],
+      "@component/*": ["component/*"],
+      "@context/*": ["context/*"],
+      "@hooks": ["hooks/index.js"],
+      "@util": ["util/index.js"],
+      "@/*": ["/*"]
+    }
+  }
+}

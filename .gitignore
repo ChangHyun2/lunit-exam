@@ -1,0 +1,9 @@
+.history
+
+config/.env
+
+build
+
+dist
+
+node_modules
