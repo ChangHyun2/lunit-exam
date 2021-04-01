@@ -4,8 +4,8 @@
     "module": "commonjs",
     "jsx": "react",
     "paths": {
-      "@page/*": ["page"],
       "@UI/*": ["UI/*"],
+      "@lib/*": ["lib/*"],
       "@component/*": ["component/*"],
       "@context/*": ["context/*"],
       "@hooks": ["hooks/index.js"],

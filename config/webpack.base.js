@@ -8,9 +8,9 @@ const aliases = {
   '@': '',
   '@UI': 'component/UI',
   '@component': 'component',
-  '@page': 'page',
+  '@lib': 'lib',
   '@hooks': 'hooks/index.js',
-  '@context': 'context/index.js',
+  '@context': 'context',
   '@util': 'util/index.js',
 };
 

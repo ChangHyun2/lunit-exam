@@ -49,3 +49,11 @@ console.log()로 출력합니다. 1에서 병합한 다각형은 출력된 JSON 
 
 ![](README/12-49-07.png)
 
+### Canvas API
+
+- Paper.js
+- https://www.youtube.com/watch?v=FLESHMJ-bI0
+- http://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html
+
+## 구조
+
