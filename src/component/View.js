@@ -5,6 +5,11 @@ import { useView, Path } from '@lib/Paint';
 const StyledView = styled.div`
   width: 70%;
   height: 100%;
+
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export default function View(props) {
@@ -21,44 +26,92 @@ export default function View(props) {
 
   const { addPath, removePath, layers } = useView();
 
+  const setBrush = React.useCallback((options = {}) => {
+    const {
+      lineCap = 'round',
+      strokeWidth = '3px',
+      strokeStyle = 'red',
+    } = options;
+
+    const ctx = ctxRef.current;
+
+    ctx.lineCap = lineCap;
+    ctx.strokeWidth = strokeWidth;
+    ctx.strokeStyle = strokeStyle;
+  }, []);
+
+  const redraw = React.useCallback(() => {
+    const { width, height } = viewRef.current.getBoundingClientRect();
+
+    const ctx = ctxRef.current;
+    ctx.clearRect(0, 0, width, height);
+
+    layers.forEach((layer) => {
+      layer.isVisible &&
+        layer.paths.forEach(({ startPoint, points }) => {
+          ctx.beginPath();
+          ctx.moveTo(startPoint.x, startPoint.y);
+
+          // path에 optiopn 추가
+          setBrush();
+
+          points.forEach((point) => {
+            ctx.lineTo(point.x, point.y);
+            ctx.stroke();
+          });
+
+          ctx.lineTo(startPoint.x, startPoint.y);
+          ctx.stroke();
+          ctx.closePath();
+        });
+    });
+  }, [layers]);
+
   const handleResize = React.useCallback(() => {
     const { width, height, x, y } = viewRef.current.getBoundingClientRect();
 
     setSize({
-      width : width -x,
-      height : height -y,
+      width: width - x,
+      height: height - y,
     });
   });
 
-  const handleMouseDown = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
-    const ctx = ctxRef.current;
+  const handleMouseDown = React.useCallback(
+    ({ nativeEvent }) => {
+      const { offsetX, offsetY } = nativeEvent;
+      const ctx = ctxRef.current;
 
-    ctx.beginPath();
-    ctx.moveTo(offsetX, offsetY);
+      ctx.beginPath();
+      setBrush();
+      ctx.moveTo(offsetX, offsetY);
 
-    drawingPath.current = new Path(offsetX, offsetY);
+      drawingPath.current = new Path(offsetX, offsetY);
 
-    const activeLayer = layers.find((layer) => layer.isActive === true);
-    drawingPath.current.setName(`polygon ${activeLayer.paths.length}`);
+      const activeLayer = layers.find((layer) => layer.isActive === true);
+      drawingPath.current.setName(`polygon ${activeLayer.paths.length}`);
 
-    setIsDrawing(true);
-  };
+      setIsDrawing(true);
+    },
+    [layers, Path]
+  );
 
-  const handleMouseMove = ({ nativeEvent: { offsetX, offsetY } }) => {
-    if (!isDrawing) {
-      return;
-    }
+  const handleMouseMove = React.useCallback(
+    ({ nativeEvent: { offsetX, offsetY } }) => {
+      if (!isDrawing) {
+        return;
+      }
 
-    const ctx = ctxRef.current;
+      const ctx = ctxRef.current;
 
-    ctx.lineTo(offsetX, offsetY);
-    ctx.stroke();
+      ctx.lineTo(offsetX, offsetY);
+      ctx.stroke();
 
-    drawingPath.current.addPoint(offsetX, offsetY);
-  };
+      drawingPath.current.addPoint(offsetX, offsetY);
+    },
+    [isDrawing]
+  );
 
-  const handleMouseUp = () => {
+  const handleMouseUp = React.useCallback(() => {
     setIsDrawing(false);
 
     const ctx = ctxRef.current;
@@ -70,7 +123,7 @@ export default function View(props) {
     ctx.closePath();
 
     addPath(drawingPath.current);
-  };
+  }, [addPath]);
 
   React.useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
@@ -88,20 +141,13 @@ export default function View(props) {
     canvas.height = height;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
+
+    redraw();
   }, [size]);
 
   React.useEffect(() => {
-    const ctx = canvasRef.current.getContext('2d');
-    const {
-      lineCap = 'round',
-      strokeStyle = 'black',
-      lineWidth = '3px',
-    } = props;
-
-    ctx.lineCap = lineCap;
-    ctx.strokeStyle = strokeStyle;
-    ctx.lineWidth = lineWidth;
-  }, [props.lineCap, props.strokeStyle, props.lineWidth]);
+    redraw();
+  }, [layers, redraw]);
 
   return (
     <StyledView ref={viewRef}>
