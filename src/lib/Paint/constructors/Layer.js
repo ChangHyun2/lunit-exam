@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export default class Layer {
   constructor(options) {
     const { paths = [], isActive = true } = options;
@@ -5,6 +7,7 @@ export default class Layer {
     this.paths = paths;
     this.isActive = isActive;
     this.isVisible = true;
+    this.id = uuidv4();
   }
 
   add(path) {

@@ -6,11 +6,16 @@ import View from '@component/View';
 import Panel from '@component/Panel';
 
 const StyledProject = styled.div`
-  button {
-  }
+  height: 100vh;
+  display:flex;
+  flex-direction: column;
 
   > div {
     display: flex;
+  }
+
+  div:last-child{
+    flex:1;
   }
 `;
 
@@ -36,8 +41,10 @@ export default function Project(props) {
   return (
     <Paint initialState={undefined}>
       <StyledProject>
-        <LoadLayersButton />
-        <InitializeButton />
+        <div>
+          <LoadLayersButton />
+          <InitializeButton />
+        </div>
         <div>
           <View />
           <Panel />

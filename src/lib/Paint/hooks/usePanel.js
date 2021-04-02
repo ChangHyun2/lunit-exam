@@ -3,7 +3,7 @@ import { useCanvasContext } from '../context/CanvasContext';
 export default function usePanel() {
   const {
     initialState,
-    state: { layers },
+    state: { layers, activeLayerIndex },
     helpers: { addLayer, showLayer, hideLayer, removeLayer, focusLayer },
   } = useCanvasContext();
 
@@ -15,5 +15,6 @@ export default function usePanel() {
     hideLayer,
     removeLayer,
     focusLayer,
+    activeLayerIndex
   };
 }

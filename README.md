@@ -57,3 +57,19 @@ console.log()로 출력합니다. 1에서 병합한 다각형은 출력된 JSON 
 
 ## 구조
 
+- project
+  - setLayers => view, layerLis
+
+    - layer
+      - add => view, layerList
+      - remove => view, layerList,
+      - hide  => view, layerList,
+      - show  => view, layerList,
+
+          - polygon 
+            - add => layerList
+            - remove => view, layerList
+            - options => view, layerList
+
+
+    checkMerge => merge => view, layerList

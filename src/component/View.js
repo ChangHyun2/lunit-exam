@@ -4,6 +4,7 @@ import { useView, Path } from '@lib/Paint';
 
 const StyledView = styled.div`
   width: 70%;
+  height: 100%;
 `;
 
 export default function View(props) {
@@ -21,11 +22,11 @@ export default function View(props) {
   const { addPath, removePath, layers } = useView();
 
   const handleResize = React.useCallback(() => {
-    const { width, height } = viewRef.current.getBoundingClientRect();
+    const { width, height, x, y } = viewRef.current.getBoundingClientRect();
 
     setSize({
-      width,
-      height,
+      width : width -x,
+      height : height -y,
     });
   });
 
@@ -110,7 +111,6 @@ export default function View(props) {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       ></canvas>
-      ;
     </StyledView>
   );
 }

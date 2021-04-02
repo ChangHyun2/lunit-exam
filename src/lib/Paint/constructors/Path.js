@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import Point from './Point';
 
 export default class Path {
@@ -5,6 +6,7 @@ export default class Path {
     this.name = undefined;
     this.startPoint = null;
     this.points = [];
+    this.id = uuidv4();
 
     this.addPoint(x, y);
   }

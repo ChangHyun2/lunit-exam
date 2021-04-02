@@ -1,3 +1,4 @@
+import Project from '@component/Project';
 import { useCanvasContext } from '../context/CanvasContext';
 
 export default function useView() {
@@ -14,3 +15,12 @@ export default function useView() {
     removePath,
   };
 }
+
+
+
+
+
+
+
+
+
