@@ -5,6 +5,11 @@ import CanvasContext from './context/CanvasContext';
 // state reducer
 function canvasStateReducer(state, action) {
   switch (action.type) {
+    case 'INITIALIZE': {
+      console.log(action.payload);
+      return action.payload;
+    }
+
     case 'SET_LAYERS': {
       const layers = action.payload;
 
@@ -35,6 +40,7 @@ function canvasStateReducer(state, action) {
     }
 
     case 'ADD_PATH': {
+      console.log(state.layers);
       const activeLayer = state.layers.find((layer) => layer.isActive === true);
 
       const path = action.payload;
@@ -104,25 +110,33 @@ function canvasStateReducer(state, action) {
   }
 }
 
+const getDefaultInitialState = () => ({
+  layers: [
+    new Layer({
+      paths: [],
+      isActive: true,
+    }),
+  ],
+});
+
 function Paint(props) {
   // state
   const [state, dispatch] = React.useReducer(
     canvasStateReducer,
-    props.initialState || {
-      layers: [
-        new Layer({
-          paths: [],
-          isActive: false,
-        }),
-      ],
-      // ...
-    }
+    getDefaultInitialState()
   );
 
   // helpers
   let helpers = {};
 
   // used in Project
+  const initialize = React.useCallback(() => {
+    dispatch({
+      type: 'INITIALIZE',
+      payload: getDefaultInitialState(),
+    });
+  });
+
   const setLayers = React.useCallback((layers) => {
     dispatch({
       type: 'SET_LAYERS',
@@ -190,13 +204,13 @@ function Paint(props) {
     focusLayer,
     addPath,
     removePath,
+    initialize,
   };
 
   // initialState/state/helpers in canvas context value
   return (
     <CanvasContext.Provider
       value={{
-        initialState: props.initialState,
         state,
         helpers,
       }}
@@ -209,7 +223,7 @@ function Paint(props) {
 export { default as Layer } from './constructors/Layer';
 export { default as Path } from './constructors/Path';
 export { default as Point } from './constructors/Point';
-export { default as useController } from './hooks/useController';
+export { default as usePanel } from './hooks/usePanel';
 export { default as useProject } from './hooks/useProject';
 export { default as useView } from './hooks/useView';
 export { useCanvasContext } from './context/CanvasContext';

@@ -1,6 +1,6 @@
 import { useCanvasContext } from '../context/CanvasContext';
 
-export default function useController() {
+export default function usePanel() {
   const {
     initialState,
     state: { layers },

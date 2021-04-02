@@ -1,11 +1,17 @@
 import Point from './Point';
 
 export default class Path {
-  constructor(name) {
-    this.name = name;
-    this.points = [];
+  constructor(x, y) {
+    this.name = undefined;
     this.startPoint = null;
+    this.points = [];
+
+    this.addPoint(x, y);
   }
+
+  setName = (name) => {
+    this.name = name;
+  };
 
   addPoint = (x, y) => {
     const newPoint = new Point(x, y);

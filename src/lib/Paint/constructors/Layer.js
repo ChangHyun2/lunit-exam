@@ -1,6 +1,6 @@
 export default class Layer {
   constructor(options) {
-    const { paths = [], isActive = false } = options;
+    const { paths = [], isActive = true } = options;
 
     this.paths = paths;
     this.isActive = isActive;

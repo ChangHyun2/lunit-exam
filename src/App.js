@@ -1,9 +1,6 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
-import Paint from '@lib/Paint';
 import Project from '@component/Project';
-import View from '@component/View';
-import Controller from '@component/Controller';
 
 // delete
 import styled from '@emotion/styled';
