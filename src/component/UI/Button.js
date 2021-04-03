@@ -17,6 +17,7 @@ const StyledButton = styled.button`
 
   :disabled{
     background-color: ${s.pallete.disabled}
+    cursor: not-allowed;
   }
 `;
 

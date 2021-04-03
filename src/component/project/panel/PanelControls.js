@@ -116,7 +116,13 @@ export default function PanelControls({ merged }) {
 
   return (
     <StyledPanelControls>
-      <Button onClick={mergePaths} disabled={merged.length === 0}>
+      <Button
+        onClick={mergePaths}
+        disabled={
+          merged.length === 0 ||
+          (merged.length === 1 && merged[0].paths.length === 1)
+        }
+      >
         merge selected
       </Button>
       <Button onClick={addLayer}>add layer</Button>

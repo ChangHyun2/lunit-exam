@@ -3,6 +3,7 @@ import Layer from './elements/Layer';
 import CanvasContext from './context/CanvasContext';
 
 // state reducer
+
 function canvasStateReducer(state, action) {
   switch (action.type) {
     case 'INITIALIZE': {
@@ -29,7 +30,9 @@ function canvasStateReducer(state, action) {
     case 'ADD_LAYER': {
       const layer = action.payload;
 
-      const oldActiveLayer = state.layers[state.activeLayerIndex];
+      const oldActiveLayer = state.layers.find(
+        (layer) => layer.isActive === true
+      );
       oldActiveLayer.isActive = false;
 
       return {

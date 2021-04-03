@@ -23,9 +23,12 @@ export default function Panel() {
   const [merged, setMerged] = useState([]);
 
   useEffect(() => {
+    console.log(merged);
+  }, [merged]);
+
+  useEffect(() => {
     // 초기화될 경우
     layers.length === 1 && layers[0].paths.length === 0 && setMerged([]);
-    console.log(layers);
   }, [layers]);
 
   return (

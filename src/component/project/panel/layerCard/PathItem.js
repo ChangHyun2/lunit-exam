@@ -47,7 +47,7 @@ const PathItem = memo(({ id, layerId, path, setMerged }) => {
 
       merged = [...prev];
 
-      return merged;
+      return merged.filter((layer) => layer.paths.length);
     });
   }, [checked.on]);
 
