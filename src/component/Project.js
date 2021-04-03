@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Paint, { useProject } from '@lib/Paint';
+import Paint from '@lib/Paint';
+import s from 'S';
 
-import View from '@component/View';
-import Panel from '@component/Panel';
+import Panel from './project/Panel';
+import View from './project/View';
+import ProjectHeader from './project/ProjectHeader';
 
 const StyledProject = styled.div`
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  ${s.col}
+  background-color: ${s.pallete.primary}
 
   > div {
-    display: flex;
+    ${s.flex}
   }
 
   div:last-child {
@@ -19,32 +21,11 @@ const StyledProject = styled.div`
   }
 `;
 
-const LoadLayersButton = () => {
-  const { setLayers } = useProject();
-
-  // json import해서 layers 불러오기
-  const loadLayers = (e) => {
-    // const loadedLayers = //
-    // setLayers(loadedLayers);
-  };
-
-  return <button onClick={loadLayers}>레이어 불러오기</button>;
-};
-
-const InitializeButton = () => {
-  const { initialize } = useProject();
-
-  return <button onClick={initialize}>초기화하기</button>;
-};
-
 export default function Project(props) {
   return (
     <Paint initialState={undefined}>
       <StyledProject>
-        <div>
-          <LoadLayersButton />
-          <InitializeButton />
-        </div>
+        <ProjectHeader />
         <div>
           <View />
           <Panel />

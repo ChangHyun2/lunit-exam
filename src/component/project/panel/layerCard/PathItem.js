@@ -1,7 +1,16 @@
 import React from 'react';
+import styled from '@emotion/styled';
+import s from 'S';
 import { useToggle } from '@hooks';
-import Checkbox from '@component/UI/Checkbox';
 import { Path } from '@lib/Paint';
+
+const StyledPathItem = styled.div`
+  input {
+    margin-right: ${s.SPACING[4]}px;
+  }
+  ${s.rowCenter}
+  ${s.mb1}
+`;
 
 const PathItem = React.memo(({ id, layerId, path, setMerged }) => {
   const checked = useToggle(false);
@@ -42,15 +51,15 @@ const PathItem = React.memo(({ id, layerId, path, setMerged }) => {
   mountedRef.current = true;
 
   return (
-    <li>
-      <Checkbox
+    <StyledPathItem>
+      <input
         id={path.id}
         type="checkbox"
         checked={checked.on}
         onChange={checked.toggle}
       />
       <div>{path.name}</div>
-    </li>
+    </StyledPathItem>
   );
 });
 

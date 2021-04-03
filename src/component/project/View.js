@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useView, Path } from '@lib/Paint';
+import s from 'S';
 
 const StyledView = styled.div`
   width: 70%;
   height: 100%;
 
   canvas {
+    background-color: ${s.pallete.primaryDark}
     width: 100%;
     height: 100%;
   }
@@ -100,6 +102,8 @@ export default function View(props) {
       if (!isDrawing) {
         return;
       }
+
+      console.log(offsetX, offsetY);
 
       const ctx = ctxRef.current;
 

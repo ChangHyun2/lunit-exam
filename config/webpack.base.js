@@ -12,6 +12,7 @@ const aliases = {
   '@hooks': 'hooks/index.js',
   '@context': 'context',
   '@util': 'util/index.js',
+  S: 'lib/S/index.js',
 };
 
 Object.keys(aliases).forEach((importName) => {

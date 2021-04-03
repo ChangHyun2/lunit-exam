@@ -10,7 +10,8 @@
       "@context/*": ["context/*"],
       "@hooks": ["hooks/index.js"],
       "@util": ["util/index.js"],
-      "@/*": ["/*"]
+      "@/*": ["/*"],
+      "S": ["lib/S/index.js"]
     }
   }
 }
