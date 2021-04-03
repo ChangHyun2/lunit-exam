@@ -1,15 +1,15 @@
-import React from "react";
-import Layer from "./constructors/Layer";
-import CanvasContext from "./context/CanvasContext";
+import React from 'react';
+import Layer from './constructors/Layer';
+import CanvasContext from './context/CanvasContext';
 
 // state reducer
 function canvasStateReducer(state, action) {
   switch (action.type) {
-    case "INITIALIZE": {
-      return { ...action.payload, activeLayer: 0 };
+    case 'INITIALIZE': {
+      return { ...action.payload };
     }
 
-    case "SET_LAYERS": {
+    case 'SET_LAYERS': {
       const layers = action.payload;
 
       let activeLayerIndex = layers.findIndex(
@@ -17,32 +17,28 @@ function canvasStateReducer(state, action) {
       );
 
       if (activeLayerIndex === -1) {
-        activeLayerIndex = 0;
-        layers[activeLayerIndex].isActive = true;
+        layers[0].isActive = true;
       }
 
       return {
         ...state,
         layers,
-        activeLayerIndex,
       };
     }
 
-    case "ADD_LAYER": {
+    case 'ADD_LAYER': {
       const layer = action.payload;
 
-      const oldActiveLayer = state.layers[state.activeLayerIndex]
-      oldActiveLayer.isActive = false
-      
+      const oldActiveLayer = state.layers[state.activeLayerIndex];
+      oldActiveLayer.isActive = false;
+
       return {
         ...state,
         layers: [...state.layers, layer],
-        activeLayerIndex: state.layers.length,
       };
     }
 
-    case "ADD_PATH": {
-      console.log(state.layers);
+    case 'ADD_PATH': {
       const activeLayer = state.layers.find((layer) => layer.isActive === true);
 
       const path = action.payload;
@@ -54,8 +50,8 @@ function canvasStateReducer(state, action) {
       };
     }
 
-    case "FOCUS_LAYER": {
-      const oldActiveLayer = state.layers.find(layer => layer.isActive);
+    case 'FOCUS_LAYER': {
+      const oldActiveLayer = state.layers.find((layer) => layer.isActive);
       oldActiveLayer.isActive = false;
 
       const focusedLayerId = action.payload;
@@ -73,7 +69,7 @@ function canvasStateReducer(state, action) {
     // case 'SHOW_LAYER':
     // case 'HIDE LAYER':
 
-    case "REMOVE_LAYER": {
+    case 'REMOVE_LAYER': {
       const removedLayerId = action.payload;
 
       const removedLayerIndex = state.layers.findIndex(
@@ -89,7 +85,7 @@ function canvasStateReducer(state, action) {
       };
     }
 
-    case "REMOVE_PATH": {
+    case 'REMOVE_PATH': {
       const removedPathId = action.payload;
 
       const activeLayer = state.layers.find((layer) => layer.isActive === true);
@@ -132,14 +128,14 @@ function Paint(props) {
   // used in Project
   const initialize = React.useCallback(() => {
     dispatch({
-      type: "INITIALIZE",
+      type: 'INITIALIZE',
       payload: getDefaultInitialState(),
     });
   });
 
   const setLayers = React.useCallback((layers) => {
     dispatch({
-      type: "SET_LAYERS",
+      type: 'SET_LAYERS',
       payload: layers,
     });
   }, []);
@@ -147,7 +143,7 @@ function Paint(props) {
   // used in Controller
   const addLayer = React.useCallback(() => {
     dispatch({
-      type: "ADD_LAYER",
+      type: 'ADD_LAYER',
       payload: new Layer({
         paths: [],
         isActive: true,
@@ -157,28 +153,28 @@ function Paint(props) {
 
   const removeLayer = React.useCallback((id) => {
     dispatch({
-      type: "REMOVE_LAYER",
+      type: 'REMOVE_LAYER',
       payload: id,
     });
   }, []);
 
   const focusLayer = React.useCallback((layerId) => {
     dispatch({
-      type: "FOCUS_LAYER",
+      type: 'FOCUS_LAYER',
       payload: layerId,
     });
   }, []);
 
   const showLayer = React.useCallback((layerId) => {
     dispatch({
-      type: "SHOW_LAYER",
+      type: 'SHOW_LAYER',
       payload: layerId,
     });
   }, []);
 
   const hideLayer = React.useCallback((layerId) => {
     dispatch({
-      type: "HIDE_LAYER",
+      type: 'HIDE_LAYER',
       payload: layerId,
     });
   }, []);
@@ -186,14 +182,14 @@ function Paint(props) {
   // used in View
   const addPath = React.useCallback((path) => {
     dispatch({
-      type: "ADD_PATH",
+      type: 'ADD_PATH',
       payload: path,
     });
   }, []);
 
   const removePath = React.useCallback((id) => {
     dispatch({
-      type: "REMOVE_PATH",
+      type: 'REMOVE_PATH',
       payload: id,
     });
   }, []);
@@ -223,12 +219,12 @@ function Paint(props) {
   );
 }
 
-export { default as Layer } from "./constructors/Layer";
-export { default as Path } from "./constructors/Path";
-export { default as Point } from "./constructors/Point";
-export { default as usePanel } from "./hooks/usePanel";
-export { default as useProject } from "./hooks/useProject";
-export { default as useView } from "./hooks/useView";
-export { useCanvasContext } from "./context/CanvasContext";
+export { default as Layer } from './constructors/Layer';
+export { default as Path } from './constructors/Path';
+export { default as Point } from './constructors/Point';
+export { default as usePanel } from './hooks/usePanel';
+export { default as useProject } from './hooks/useProject';
+export { default as useView } from './hooks/useView';
+export { useCanvasContext } from './context/CanvasContext';
 
 export default Paint;

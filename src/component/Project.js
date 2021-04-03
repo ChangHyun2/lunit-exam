@@ -7,15 +7,15 @@ import Panel from '@component/Panel';
 
 const StyledProject = styled.div`
   height: 100vh;
-  display:flex;
+  display: flex;
   flex-direction: column;
 
   > div {
     display: flex;
   }
 
-  div:last-child{
-    flex:1;
+  div:last-child {
+    flex: 1;
   }
 `;
 

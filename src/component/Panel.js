@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { usePanel } from '@lib/Paint';
+import { useCanvasContext, usePanel } from '@lib/Paint';
 
 import PanelControls from '@component/PanelControls';
 import LayerCard from '@component/LayerCard';
@@ -13,19 +13,20 @@ const StyledPanel = styled.div`
 
 export default function Panel() {
   const {
-    layers,
-    addLayer,
-    focusLayer,
-    hideLayer,
-    removeLayer,
-    showLayer,
-  } = usePanel();
+    state: { layers },
+    helpers: { addLayer, focusLayer, hideLayer, removeLayer, showLayer },
+  } = useCanvasContext();
 
   const [merged, setMerged] = React.useState([]);
 
   React.useEffect(() => {
     console.log(merged);
   }, [merged]);
+
+  React.useEffect(() => {
+    // 초기화될 경우
+    layers.length === 1 && layers[0].paths.length === 0 && setMerged([]);
+  }, [layers]);
 
   return (
     <StyledPanel>

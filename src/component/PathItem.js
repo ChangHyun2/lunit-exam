@@ -1,40 +1,45 @@
-import React from "react";
-import { useToggle } from "@hooks";
-import Checkbox from "@component/UI/Checkbox";
-import { Path } from "@lib/Paint";
+import React from 'react';
+import { useToggle } from '@hooks';
+import Checkbox from '@component/UI/Checkbox';
+import { Path } from '@lib/Paint';
 
 const PathItem = React.memo(({ id, layerId, path, setMerged }) => {
   const checked = useToggle(false);
+  const mountedRef = React.useRef(false);
 
   React.useEffect(() => {
+    if (!mountedRef.current) return;
+
     setMerged((prev) => {
       let merged;
 
-      const mergedLayer = prev.find(
-        (mergedLayer) => mergedLayer.id === layerId
+      const mergedInfo = prev.find(
+        (mergedInfo) => mergedInfo.layerId === layerId
       );
 
-      if (!mergedLayer) {
+      if (!mergedInfo) {
         return checked.on
           ? [
               ...prev,
               {
-                id: layerId,
+                layerId,
                 paths: [id],
               },
             ]
           : prev;
       }
 
-      mergedLayer.paths = checked.on
-        ? [...mergedLayer.paths, id]
-        : mergedLayer.paths.filter((pathId) => pathId === id);
+      mergedInfo.paths = checked.on
+        ? [...mergedInfo.paths, id]
+        : mergedInfo.paths.filter((pathId) => pathId !== id);
 
       merged = [...prev];
 
       return merged;
     });
   }, [checked.on]);
+
+  mountedRef.current = true;
 
   return (
     <li>

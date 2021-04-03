@@ -1,24 +1,25 @@
-import styled from "@emotion/styled";
-import PathItem from './PathItem'
-import {usePanel} from '@lib/Paint'
-import React, { useEffect } from "react";
+import styled from '@emotion/styled';
+import PathItem from './PathItem';
+import { useCanvasContext } from '@lib/Paint';
+import React, { useEffect } from 'react';
 
 const StyledLayerCard = styled.div`
   ul {
-    border: 1px solid ${({isActive}) => isActive ? 'blue' : 'black'};
+    border: 1px solid ${({ isActive }) => (isActive ? 'blue' : 'black')};
     min-height: 100px;
-    
   }
 `;
 
 function LayerCard({ id, paths, isActive, setMerged }) {
-  const { focusLayer } = usePanel()
+  const {
+    helpers: { focusLayer },
+  } = useCanvasContext();
 
-  const handleClick = () => focusLayer(id)
+  const handleClick = () => focusLayer(id);
 
   return (
     <StyledLayerCard isActive={isActive} onClick={handleClick}>
-      {"LayerControls (hide, show, remove, add)"}
+      {'LayerControls (hide, show, remove, add)'}
       <ul>
         {paths.map((path) => (
           <PathItem
@@ -34,4 +35,4 @@ function LayerCard({ id, paths, isActive, setMerged }) {
   );
 }
 
-export default React.memo(LayerCard)
+export default React.memo(LayerCard);
