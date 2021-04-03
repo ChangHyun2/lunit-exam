@@ -79,7 +79,7 @@ export default function View() {
       width: width - x,
       height: height - y,
     });
-  });
+  }, []);
 
   const handleMouseDown = useCallback(
     ({ nativeEvent }) => {
@@ -138,7 +138,7 @@ export default function View() {
 
     handleResize();
     window.addEventListener('resize', handleResize);
-  }, []);
+  }, [handleResize]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -150,7 +150,7 @@ export default function View() {
     canvas.style.height = `${height}px`;
 
     redraw();
-  }, [size]);
+  }, [size, redraw]);
 
   useEffect(() => {
     redraw();

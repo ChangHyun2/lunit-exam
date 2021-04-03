@@ -133,14 +133,17 @@ export default function Paint(props) {
       type: 'INITIALIZE',
       payload: getDefaultInitialState(),
     });
-  });
+  }, [dispatch]);
 
-  const setLayers = useCallback((layers) => {
-    dispatch({
-      type: 'SET_LAYERS',
-      payload: layers,
-    });
-  }, []);
+  const setLayers = useCallback(
+    (layers) => {
+      dispatch({
+        type: 'SET_LAYERS',
+        payload: layers,
+      });
+    },
+    [dispatch]
+  );
 
   const addLayer = useCallback(() => {
     dispatch({
@@ -150,49 +153,67 @@ export default function Paint(props) {
         isActive: true,
       }),
     });
-  }, []);
+  }, [dispatch]);
 
-  const removeLayer = useCallback((id) => {
-    dispatch({
-      type: 'REMOVE_LAYER',
-      payload: id,
-    });
-  }, []);
+  const removeLayer = useCallback(
+    (id) => {
+      dispatch({
+        type: 'REMOVE_LAYER',
+        payload: id,
+      });
+    },
+    [dispatch]
+  );
 
-  const focusLayer = useCallback((layerId) => {
-    dispatch({
-      type: 'FOCUS_LAYER',
-      payload: layerId,
-    });
-  }, []);
+  const focusLayer = useCallback(
+    (layerId) => {
+      dispatch({
+        type: 'FOCUS_LAYER',
+        payload: layerId,
+      });
+    },
+    [dispatch]
+  );
 
-  const showLayer = useCallback((layerId) => {
-    dispatch({
-      type: 'SHOW_LAYER',
-      payload: layerId,
-    });
-  }, []);
+  const showLayer = useCallback(
+    (layerId) => {
+      dispatch({
+        type: 'SHOW_LAYER',
+        payload: layerId,
+      });
+    },
+    [dispatch]
+  );
 
-  const hideLayer = useCallback((layerId) => {
-    dispatch({
-      type: 'HIDE_LAYER',
-      payload: layerId,
-    });
-  }, []);
+  const hideLayer = useCallback(
+    (layerId) => {
+      dispatch({
+        type: 'HIDE_LAYER',
+        payload: layerId,
+      });
+    },
+    [dispatch]
+  );
 
-  const addPath = useCallback((path) => {
-    dispatch({
-      type: 'ADD_PATH',
-      payload: path,
-    });
-  }, []);
+  const addPath = useCallback(
+    (path) => {
+      dispatch({
+        type: 'ADD_PATH',
+        payload: path,
+      });
+    },
+    [dispatch]
+  );
 
-  const removePath = useCallback((id) => {
-    dispatch({
-      type: 'REMOVE_PATH',
-      payload: id,
-    });
-  }, []);
+  const removePath = useCallback(
+    (id) => {
+      dispatch({
+        type: 'REMOVE_PATH',
+        payload: id,
+      });
+    },
+    [dispatch]
+  );
 
   helpers = {
     setLayers,
