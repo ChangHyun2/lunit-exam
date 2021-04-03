@@ -1,6 +1,6 @@
-import React from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useView, Path } from '@lib/Paint';
+import { useCanvasContext, Path } from '@lib/Paint';
 import s from 'S';
 
 const StyledView = styled.div`
@@ -14,21 +14,24 @@ const StyledView = styled.div`
   }
 `;
 
-export default function View(props) {
-  const viewRef = React.useRef();
-  const canvasRef = React.useRef();
-  const ctxRef = React.useRef();
-  const drawingPath = React.useRef();
+export default function View() {
+  const viewRef = useRef();
+  const canvasRef = useRef();
+  const ctxRef = useRef();
+  const drawingPath = useRef();
 
-  const [isDrawing, setIsDrawing] = React.useState(false);
-  const [size, setSize] = React.useState({
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [size, setSize] = useState({
     width: 0,
     height: 0,
   });
 
-  const { addPath, removePath, layers } = useView();
+  const {
+    state: { layers },
+    helpers: { addPath, removePath },
+  } = useCanvasContext();
 
-  const setBrush = React.useCallback((options = {}) => {
+  const setBrush = useCallback((options = {}) => {
     const {
       lineCap = 'round',
       strokeWidth = '3px',
@@ -42,7 +45,7 @@ export default function View(props) {
     ctx.strokeStyle = strokeStyle;
   }, []);
 
-  const redraw = React.useCallback(() => {
+  const redraw = useCallback(() => {
     const { width, height } = viewRef.current.getBoundingClientRect();
 
     const ctx = ctxRef.current;
@@ -69,7 +72,7 @@ export default function View(props) {
     });
   }, [layers]);
 
-  const handleResize = React.useCallback(() => {
+  const handleResize = useCallback(() => {
     const { width, height, x, y } = viewRef.current.getBoundingClientRect();
 
     setSize({
@@ -78,7 +81,7 @@ export default function View(props) {
     });
   });
 
-  const handleMouseDown = React.useCallback(
+  const handleMouseDown = useCallback(
     ({ nativeEvent }) => {
       const { offsetX, offsetY } = nativeEvent;
       const ctx = ctxRef.current;
@@ -97,7 +100,7 @@ export default function View(props) {
     [layers, Path]
   );
 
-  const handleMouseMove = React.useCallback(
+  const handleMouseMove = useCallback(
     ({ nativeEvent: { offsetX, offsetY } }) => {
       if (!isDrawing) {
         return;
@@ -115,7 +118,7 @@ export default function View(props) {
     [isDrawing]
   );
 
-  const handleMouseUp = React.useCallback(() => {
+  const handleMouseUp = useCallback(() => {
     setIsDrawing(false);
 
     const ctx = ctxRef.current;
@@ -129,7 +132,7 @@ export default function View(props) {
     addPath(drawingPath.current);
   }, [addPath]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
     ctxRef.current = ctx;
 
@@ -137,7 +140,7 @@ export default function View(props) {
     window.addEventListener('resize', handleResize);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const canvas = canvasRef.current;
     const { width, height } = size;
 
@@ -149,7 +152,7 @@ export default function View(props) {
     redraw();
   }, [size]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     redraw();
   }, [layers, redraw]);
 

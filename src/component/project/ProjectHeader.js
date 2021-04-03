@@ -1,7 +1,8 @@
-import Button from '@UI/Button';
 import styled from '@emotion/styled';
 import { useCanvasContext } from '@lib/Paint';
 import s from 'S';
+
+import Button from '@UI/Button';
 
 const StyledProjectHeader = styled.div`
   padding: ${s.SPACING[10]}px;
@@ -23,8 +24,8 @@ const ProjectHeader = () => {
 
   return (
     <StyledProjectHeader>
-      <Button onClick={loadLayers}>레이어 불러오기</Button>
-      <Button onClick={initialize}>초기화하기</Button>
+      <Button onClick={loadLayers}>load layers</Button>
+      <Button onClick={initialize}>reset</Button>
     </StyledProjectHeader>
   );
 };

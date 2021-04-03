@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import Paint from '@lib/Paint';
 import s from 'S';
@@ -8,11 +7,10 @@ import View from './project/View';
 import ProjectHeader from './project/ProjectHeader';
 
 const StyledProject = styled.div`
-  height: 100vh;
   ${s.col}
-  background-color: ${s.pallete.primary}
-
-  > div {
+  width: 100%;
+  height: 100%;
+  background-color: ${s.pallete.primary} > div {
     ${s.flex}
   }
 
@@ -21,7 +19,7 @@ const StyledProject = styled.div`
   }
 `;
 
-export default function Project(props) {
+export default function Project() {
   return (
     <Paint initialState={undefined}>
       <StyledProject>

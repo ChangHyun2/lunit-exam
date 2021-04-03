@@ -1,6 +1,6 @@
-import React from 'react';
+import { createContext, useContext } from 'react';
 
-const CanvasContext = React.createContext();
-export const useCanvasContext = () => React.useContext(CanvasContext);
+const CanvasContext = createContext();
+export const useCanvasContext = () => useContext(CanvasContext);
 
 export default CanvasContext;

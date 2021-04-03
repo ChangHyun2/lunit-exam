@@ -1,14 +1,8 @@
 import styled from '@emotion/styled';
 import { useCanvasContext, Path } from '@lib/Paint';
-import Button from '@UI/Button';
 import s from 'S';
 
-const StyledPanelControls = styled.div`
-  button {
-    ${s.fluid}
-    ${s.mb1}
-  }
-`;
+import Button from '@UI/Button';
 
 const compareAngle = (point1, point2) => {
   const angle1 = point1.angle;
@@ -68,6 +62,13 @@ const mergeTwoPath = (path1, path2) => {
   console.log(mergedPath);
   return mergedPath;
 };
+
+const StyledPanelControls = styled.div`
+  button {
+    ${s.fluid}
+    ${s.mb1}
+  }
+`;
 
 export default function PanelControls({ merged }) {
   const {

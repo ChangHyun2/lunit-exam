@@ -1,8 +1,7 @@
-import React from 'react';
+import { memo, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import s from 'S';
 import { useToggle } from '@hooks';
-import { Path } from '@lib/Paint';
 
 const StyledPathItem = styled.div`
   input {
@@ -10,13 +9,17 @@ const StyledPathItem = styled.div`
   }
   ${s.rowCenter}
   ${s.mb1}
+
+  span:hover {
+    cursor: text;
+  }
 `;
 
-const PathItem = React.memo(({ id, layerId, path, setMerged }) => {
+const PathItem = memo(({ id, layerId, path, setMerged }) => {
   const checked = useToggle(false);
-  const mountedRef = React.useRef(false);
+  const mountedRef = useRef(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!mountedRef.current) return;
 
     setMerged((prev) => {

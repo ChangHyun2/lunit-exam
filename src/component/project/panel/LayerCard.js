@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import { memo } from 'react';
 import styled from '@emotion/styled';
-import s from 'S';
 import { useCanvasContext } from '@lib/Paint';
+import s from 'S';
+
 import PathItem from './layerCard/PathItem';
 import LayerControls from './layerCard/LayerControls';
 
@@ -14,6 +15,9 @@ const StyledLayerCard = styled.div`
     box-shadow: 0 0 2px
       ${({ isActive }) => (isActive ? s.pallete.white : s.pallete.disabled)};
       
+    :hover{
+      cursor:pointer;
+    }
   }
 `;
 
@@ -42,4 +46,4 @@ function LayerCard({ id, paths, isActive, setMerged }) {
   );
 }
 
-export default React.memo(LayerCard);
+export default memo(LayerCard);

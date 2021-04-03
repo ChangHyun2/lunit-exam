@@ -1,7 +1,6 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useCanvasContext, usePanel } from '@lib/Paint';
-
+import { useCanvasContext } from '@lib/Paint';
 import s from 'S';
 
 import PanelControls from './panel/PanelControls';
@@ -21,9 +20,9 @@ export default function Panel() {
     helpers: { addLayer, focusLayer, hideLayer, removeLayer, showLayer },
   } = useCanvasContext();
 
-  const [merged, setMerged] = React.useState([]);
+  const [merged, setMerged] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // 초기화될 경우
     layers.length === 1 && layers[0].paths.length === 0 && setMerged([]);
     console.log(layers);
