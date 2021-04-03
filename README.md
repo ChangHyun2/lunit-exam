@@ -1,5 +1,11 @@
 # 루닛 과제 전형
 
+## 미리 보기
+
+![](README/ezgif.com-gif-maker.gif)
+
+![](README/resizing.gif)
+
 ## 과제 목표
 
 단순다각형(simple polygon) 그리기와 병합 기능(선택사항)을 가지는 웹 애플리케이션을 구현합니다. 본
