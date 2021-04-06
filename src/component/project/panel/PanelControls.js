@@ -97,21 +97,13 @@ export default function PanelControls({ merged }) {
   };
 
   const exportLayers = () => {
-    const exportedLayers = {
-      ...Object.values(layers).map(({ id, paths }) => ({
-        id,
-        paths: {
-          ...Object.values(paths).map(({ id, points }) => ({
-            id,
-            points: { ...points },
-          })),
-        },
-      })),
-    };
+    const allPaths = [];
 
-    console.log(exportedLayers);
+    layers.forEach((layer) =>
+      layer.paths.forEach((path) => allPaths.push(path.points))
+    );
 
-    return JSON.stringify(exportedLayers);
+    console.log(JSON.stringify(allPaths));
   };
 
   return (
